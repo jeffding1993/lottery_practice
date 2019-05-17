@@ -24,3 +24,20 @@ def save_win(name, msg):
         except KeyError:
             shv_tool[name] = [msg]
         res.append(msg)
+
+
+# 检查用户输入功能
+def check_input(choice, length):
+    if isinstance(choice, str) and length == 1:
+        if not choice and choice != "大" and choice != "小":
+            return False, "输入有误"
+        return True, "输入正确"
+
+    if isinstance(choice, list) and length == 3:
+        if len(choice) != 3:
+            return False, "输入长度不合法"
+        if 0 in choice:
+            return False, "非法输入"
+        return True, "输入正确"
+
+    return False, "输入有误"
