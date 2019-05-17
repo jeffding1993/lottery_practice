@@ -90,18 +90,77 @@ def tiger_machine_three():
                 reward = "二"
             elif result == 1:
                 reward = "三"
-            print("%s, 中 %s 等奖。" % (winner, reward))
-            common.save_record("guess", "%s, 中 %s 等奖。" % (winner, reward))
-            common.save_win(winner, "%s, 中 %s 等奖。" % (winner, reward))
+            print("%s, 中匹配三 %s 等奖。" % (winner, reward))
+            common.save_record("guess", "%s, 中匹配三 %s 等奖。" % (winner, reward))
+            common.save_win(winner, "%s, 中匹配三 %s 等奖。" % (winner, reward))
         else:
             winner = "用户"
-            print("%s,未中奖" % winner)
-            common.save_record("guess", "%s,未中奖" % winner)
+            print("%s,匹配三未中奖" % winner)
+            common.save_record("guess", "%s,匹配三未中奖" % winner)
 
 
-# - 匹配五：三个数字匹配，设置五个奖项，规则同上
+# - 匹配五：五个数字匹配，设置五个奖项，规则同上
 def tiger_machine_five():
-    pass
+    while True:
+        winner = ""
+        choice = input("请输入1-8的五个数字(输入q退出)：").strip()
+
+        if choice == "q":
+            print("退出")
+            break
+
+        # 转换为列表
+        fan_wei = list(range(1, 9))
+        choice_list = [int(i) if int(i) in fan_wei else 0 for i in choice]
+        flag, msg = common.check_input(choice_list, 5)  # 检查输入
+
+        if not flag:
+            print(msg)
+            break
+
+        print("输入：")
+        print(choice_list)
+
+        # 几等奖
+        result = 0
+        # 假设8个数
+        num_list = [random.randint(1, 8) for i in range(5)]
+
+        num_dic = {}
+        for i in num_list:
+            if i not in num_dic:
+                num_dic[i] = 1
+            else:
+                num_dic[i] += 1
+
+        for i in choice_list:
+            if i in num_dic and num_dic[i] > 0:  # 对应中奖的数量
+                result += 1
+                num_dic[i] -= 1
+
+        print("结果：")
+        print(num_list)
+
+        if result:  # 中奖的话
+            winner = "用户"
+            reward = ""
+            if result == 5:
+                reward = "一"
+            elif result == 4:
+                reward = "二"
+            elif result == 3:
+                reward = "三"
+            elif result == 2:
+                reward = "四"
+            elif result == 1:
+                reward = "五"
+            print("%s, 中匹配五 %s 等奖。" % (winner, reward))
+            common.save_record("guess", "%s, 中匹配五 %s 等奖。" % (winner, reward))
+            common.save_win(winner, "%s, 中匹配五 %s 等奖。" % (winner, reward))
+        else:
+            winner = "用户"
+            print("%s,匹配五未中奖" % winner)
+            common.save_record("guess", "%s,匹配五未中奖" % winner)
 
 
 func_map = {

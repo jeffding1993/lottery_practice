@@ -40,4 +40,11 @@ def check_input(choice, length):
             return False, "非法输入"
         return True, "输入正确"
 
+    if isinstance(choice, list) and length == 5:
+        if len(choice) != 5:
+            return False, "输入长度不合法"
+        if 0 in choice:
+            return False, "非法输入"
+        return True, "输入正确"
+
     return False, "输入有误"
